@@ -1,6 +1,8 @@
 {
     "python.linting.pylintEnabled": true,
+    "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
+    "python.formatting.provider": "black",
     "python.pythonPath": "/usr/local/bin/python",
     "files.associations": {
         "*.yaml": "home-assistant"
