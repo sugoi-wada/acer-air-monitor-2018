@@ -1,11 +1,11 @@
-"""Constants for integration_blueprint."""
+"""Constants for acer_air_monitor."""
 # Base component constants
-NAME = "Integration blueprint"
-DOMAIN = "integration_blueprint"
+NAME = "Acer Air Monitor"
+DOMAIN = "acer_air_monitor"
 DOMAIN_DATA = f"{DOMAIN}_data"
 VERSION = "0.0.1"
 ATTRIBUTION = "Data provided by http://jsonplaceholder.typicode.com/"
-ISSUE_URL = "https://github.com/custom-components/integration_blueprint/issues"
+ISSUE_URL = "https://github.com/sugoi-wada/acer-air-monitor-2018/issues"
 
 # Icons
 ICON = "mdi:format-quote-close"

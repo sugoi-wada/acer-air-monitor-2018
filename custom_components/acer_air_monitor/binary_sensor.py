@@ -1,12 +1,7 @@
-"""Binary sensor platform for integration_blueprint."""
+"""Binary sensor platform for acer_air_monitor."""
 from homeassistant.components.binary_sensor import BinarySensorEntity
 
-from .const import (
-    BINARY_SENSOR,
-    BINARY_SENSOR_DEVICE_CLASS,
-    DEFAULT_NAME,
-    DOMAIN,
-)
+from .const import BINARY_SENSOR, BINARY_SENSOR_DEVICE_CLASS, DEFAULT_NAME, DOMAIN
 from .entity import IntegrationBlueprintEntity
 
 
@@ -17,7 +12,7 @@ async def async_setup_entry(hass, entry, async_add_devices):
 
 
 class IntegrationBlueprintBinarySensor(IntegrationBlueprintEntity, BinarySensorEntity):
-    """integration_blueprint binary_sensor class."""
+    """acer_air_monitor binary_sensor class."""
 
     @property
     def name(self):
