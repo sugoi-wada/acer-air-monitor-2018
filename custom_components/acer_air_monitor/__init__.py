@@ -14,7 +14,7 @@ from homeassistant.exceptions import ConfigEntryNotReady
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .api import IntegrationBlueprintApiClient
+from .api import AirMonitorApiClient
 from .const import CONF_PASSWORD, CONF_USERNAME, DOMAIN, PLATFORMS, STARTUP_MESSAGE
 
 SCAN_INTERVAL = timedelta(seconds=30)
@@ -37,7 +37,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     password = entry.data.get(CONF_PASSWORD)
 
     session = async_get_clientsession(hass)
-    client = IntegrationBlueprintApiClient(username, password, session)
+    client = AirMonitorApiClient(username, password, session)
 
     coordinator = BlueprintDataUpdateCoordinator(hass, client=client)
     await coordinator.async_refresh()
@@ -62,7 +62,7 @@ class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
     def __init__(
-        self, hass: HomeAssistant, client: IntegrationBlueprintApiClient
+        self, hass: HomeAssistant, client: AirMonitorApiClient
     ) -> None:
         """Initialize."""
         self.api = client
