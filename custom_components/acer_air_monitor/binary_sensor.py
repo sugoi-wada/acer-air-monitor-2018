@@ -1,12 +1,7 @@
 """Binary sensor platform for acer_air_monitor."""
 from homeassistant.components.binary_sensor import BinarySensorEntity
 
-from .const import (
-    BINARY_SENSOR,
-    BINARY_SENSOR_DEVICE_CLASS,
-    DEFAULT_NAME,
-    DOMAIN,
-)
+from .const import BINARY_SENSOR, BINARY_SENSOR_DEVICE_CLASS, DEFAULT_NAME, DOMAIN
 from .entity import IntegrationBlueprintEntity
 
 
