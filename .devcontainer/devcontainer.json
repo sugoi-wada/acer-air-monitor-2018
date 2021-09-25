@@ -39,13 +39,14 @@
 		},
 		"python.pythonPath": "/usr/bin/python3",
 		"python.analysis.autoSearchPaths": false,
-		"python.linting.pylintEnabled": true,
+		"python.linting.pylintEnabled": false,
 		"python.linting.enabled": true,
 		"python.formatting.provider": "black",
 		"python.linting.flake8Enabled": true,
 		"editor.formatOnPaste": false,
 		"editor.formatOnSave": true,
 		"editor.formatOnType": true,
-		"files.trimTrailingWhitespace": true
+		"files.trimTrailingWhitespace": true,
+		"python.linting.mypyEnabled": true
 	}
 }

@@ -1,9 +1,12 @@
 """Sensor platform for acer_air_monitor."""
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
+
 from .const import DEFAULT_NAME, DOMAIN, ICON, SENSOR
 from .entity import IntegrationBlueprintEntity
 
 
-async def async_setup_entry(hass, entry, async_add_devices):
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_devices):
     """Setup sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_devices([IntegrationBlueprintSensor(coordinator, entry)])

@@ -40,7 +40,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
     client = AirMonitorApiClient(username, password, session)
 
     coordinator = BlueprintDataUpdateCoordinator(hass, client=client)
-    await coordinator.async_refresh()
+    await coordinator.async_config_entry_first_refresh()
 
     if not coordinator.last_update_success:
         raise ConfigEntryNotReady
@@ -61,12 +61,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 class BlueprintDataUpdateCoordinator(DataUpdateCoordinator):
     """Class to manage fetching data from the API."""
 
-    def __init__(
-        self, hass: HomeAssistant, client: AirMonitorApiClient
-    ) -> None:
+    def __init__(self, hass: HomeAssistant, client: AirMonitorApiClient) -> None:
         """Initialize."""
         self.api = client
-        self.platforms = []
+        self.platforms: list[str] = []
 
         super().__init__(hass, _LOGGER, name=DOMAIN, update_interval=SCAN_INTERVAL)
 

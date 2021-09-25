@@ -1,11 +1,16 @@
 """BlueprintEntity class"""
+from homeassistant.config_entries import ConfigEntry
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
+
+from custom_components.acer_air_monitor import BlueprintDataUpdateCoordinator
 
 from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
 
 
 class IntegrationBlueprintEntity(CoordinatorEntity):
-    def __init__(self, coordinator, config_entry):
+    def __init__(
+        self, coordinator: BlueprintDataUpdateCoordinator, config_entry: ConfigEntry
+    ):
         super().__init__(coordinator)
         self.config_entry = config_entry
 

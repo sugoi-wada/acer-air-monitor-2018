@@ -51,7 +51,9 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     def async_get_options_flow(config_entry):
         return BlueprintOptionsFlowHandler(config_entry)
 
-    async def _show_config_form(self, user_input):  # pylint: disable=unused-argument
+    async def _show_config_form(
+        self, user_input: dict
+    ):  # pylint: disable=unused-argument
         """Show the configuration form to edit location data."""
         return self.async_show_form(
             step_id="user",
@@ -64,7 +66,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors=self._errors,
         )
 
-    async def _test_credentials(self, username, password):
+    async def _test_credentials(self, username: str, password: str):
         """Return true if credentials is valid."""
         try:
             session = async_create_clientsession(self.hass)
@@ -79,7 +81,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
     """Blueprint config flow options handler."""
 
-    def __init__(self, config_entry):
+    def __init__(self, config_entry: config_entries.ConfigEntry):
         """Initialize HACS options flow."""
         self.config_entry = config_entry
         self.options = dict(config_entry.options)

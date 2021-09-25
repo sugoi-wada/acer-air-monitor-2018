@@ -1,11 +1,13 @@
 """Binary sensor platform for acer_air_monitor."""
 from homeassistant.components.binary_sensor import BinarySensorEntity
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.core import HomeAssistant
 
 from .const import BINARY_SENSOR, BINARY_SENSOR_DEVICE_CLASS, DEFAULT_NAME, DOMAIN
 from .entity import IntegrationBlueprintEntity
 
 
-async def async_setup_entry(hass, entry, async_add_devices):
+async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_devices):
     """Setup binary_sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_devices([IntegrationBlueprintBinarySensor(coordinator, entry)])
@@ -25,6 +27,6 @@ class IntegrationBlueprintBinarySensor(IntegrationBlueprintEntity, BinarySensorE
         return BINARY_SENSOR_DEVICE_CLASS
 
     @property
-    def is_on(self):
+    def is_on(self) -> bool:
         """Return true if the binary_sensor is on."""
         return self.coordinator.data.get("title", "") == "foo"
