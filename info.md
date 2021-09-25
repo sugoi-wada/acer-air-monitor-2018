@@ -40,7 +40,7 @@ Platform | Description
 [buymecoffee]: https://www.buymeacoffee.com/ludeeus
 [buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg?style=for-the-badge
 [commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/acer_air_monitor.svg?style=for-the-badge
-[commits]: https://github.com/sugoi-wada/acer-air-monitor-2018/commits/master
+[commits]: https://github.com/sugoi-wada/acer-air-monitor-2018/commits/main
 [hacs]: https://hacs.xyz
 [hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
 [discord]: https://discord.gg/Qa5fW2R
