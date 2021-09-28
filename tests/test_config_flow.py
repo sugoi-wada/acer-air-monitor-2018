@@ -47,7 +47,7 @@ async def test_successful_config_flow(hass: HomeAssistant, bypass_get_data):
     assert result["type"] == data_entry_flow.RESULT_TYPE_FORM
     assert result["step_id"] == "user"
 
-    # If a user were to enter `test_username` for username and `test_password`
+    # If a user were to enter `test_email` for email and `test_password`
     # for password, it would result in this function call
     result = await hass.config_entries.flow.async_configure(
         result["flow_id"], user_input=MOCK_CONFIG
@@ -56,7 +56,7 @@ async def test_successful_config_flow(hass: HomeAssistant, bypass_get_data):
     # Check that the config flow is complete and a new entry is created with
     # the input data
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
-    assert result["title"] == "test_username"
+    assert result["title"] == "test_email"
     assert result["data"] == MOCK_CONFIG
     assert result["result"]
 
@@ -105,7 +105,7 @@ async def test_options_flow(hass: HomeAssistant):
 
     # Verify that the flow finishes
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
-    assert result["title"] == "test_username"
+    assert result["title"] == "test_email"
 
     # Verify that the options were updated
     assert entry.options == {BINARY_SENSOR: True, SENSOR: False, SWITCH: True}

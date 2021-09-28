@@ -17,10 +17,10 @@ HEADERS = {"Content-type": "application/json; charset=UTF-8"}
 
 class AirMonitorApiClient:
     def __init__(
-        self, username: str, password: str, session: aiohttp.ClientSession
+        self, email: str, password: str, session: aiohttp.ClientSession
     ) -> None:
         """Sample API Client."""
-        self._username = username
+        self._email = email
         self._password = password
         self._session = session
 

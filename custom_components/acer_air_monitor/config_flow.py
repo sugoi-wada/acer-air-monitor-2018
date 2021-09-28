@@ -5,7 +5,7 @@ from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import voluptuous as vol
 
 from .api import AirMonitorApiClient
-from .const import CONF_PASSWORD, CONF_USERNAME, DOMAIN, PLATFORMS
+from .const import CONF_PASSWORD, CONF_EMAIL, DOMAIN, PLATFORMS
 
 
 class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -28,11 +28,11 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         if user_input is not None:
             valid = await self._test_credentials(
-                user_input[CONF_USERNAME], user_input[CONF_PASSWORD]
+                user_input[CONF_EMAIL], user_input[CONF_PASSWORD]
             )
             if valid:
                 return self.async_create_entry(
-                    title=user_input[CONF_USERNAME], data=user_input
+                    title=user_input[CONF_EMAIL], data=user_input
                 )
             else:
                 self._errors["base"] = "auth"
@@ -41,7 +41,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         user_input = {}
         # Provide defaults for form
-        user_input[CONF_USERNAME] = ""
+        user_input[CONF_EMAIL] = ""
         user_input[CONF_PASSWORD] = ""
 
         return await self._show_config_form(user_input)
@@ -59,18 +59,18 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_USERNAME, default=user_input[CONF_USERNAME]): str,
+                    vol.Required(CONF_EMAIL, default=user_input[CONF_EMAIL]): str,
                     vol.Required(CONF_PASSWORD, default=user_input[CONF_PASSWORD]): str,
                 }
             ),
             errors=self._errors,
         )
 
-    async def _test_credentials(self, username: str, password: str):
+    async def _test_credentials(self, email: str, password: str):
         """Return true if credentials is valid."""
         try:
             session = async_create_clientsession(self.hass)
-            client = AirMonitorApiClient(username, password, session)
+            client = AirMonitorApiClient(email, password, session)
             await client.async_get_data()
             return True
         except Exception:  # pylint: disable=broad-except
@@ -109,5 +109,5 @@ class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
     async def _update_options(self):
         """Update config entry options."""
         return self.async_create_entry(
-            title=self.config_entry.data.get(CONF_USERNAME), data=self.options
+            title=self.config_entry.data.get(CONF_EMAIL), data=self.options
         )

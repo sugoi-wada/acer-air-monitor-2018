@@ -15,7 +15,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
 from .api import AirMonitorApiClient
-from .const import CONF_PASSWORD, CONF_USERNAME, DOMAIN, PLATFORMS, STARTUP_MESSAGE
+from .const import CONF_PASSWORD, CONF_EMAIL, DOMAIN, PLATFORMS, STARTUP_MESSAGE
 
 SCAN_INTERVAL = timedelta(seconds=30)
 
@@ -33,11 +33,11 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
         hass.data.setdefault(DOMAIN, {})
         _LOGGER.info(STARTUP_MESSAGE)
 
-    username = entry.data.get(CONF_USERNAME)
+    email = entry.data.get(CONF_EMAIL)
     password = entry.data.get(CONF_PASSWORD)
 
     session = async_get_clientsession(hass)
-    client = AirMonitorApiClient(username, password, session)
+    client = AirMonitorApiClient(email, password, session)
 
     coordinator = BlueprintDataUpdateCoordinator(hass, client=client)
     await coordinator.async_config_entry_first_refresh()
