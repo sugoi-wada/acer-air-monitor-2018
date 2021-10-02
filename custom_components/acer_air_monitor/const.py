@@ -4,7 +4,7 @@ NAME = "Acer Air Monitor"
 DOMAIN = "acer_air_monitor"
 DOMAIN_DATA = f"{DOMAIN}_data"
 VERSION = "0.0.1"
-ATTRIBUTION = "Data provided by http://jsonplaceholder.typicode.com/"
+ATTRIBUTION = "Data provided by Acer Air Monitor"
 ISSUE_URL = "https://github.com/sugoi-wada/acer-air-monitor-2018/issues"
 
 # Icons
@@ -24,6 +24,10 @@ PLATFORMS = [BINARY_SENSOR, SENSOR, SWITCH]
 CONF_ENABLED = "enabled"
 CONF_EMAIL = "email"
 CONF_PASSWORD = "password"
+
+USER_ATTR = "user_attr"
+
+USER_ID = "aopUserId"
 
 # Defaults
 DEFAULT_NAME = DOMAIN

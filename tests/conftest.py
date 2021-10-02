@@ -18,6 +18,8 @@ from unittest.mock import patch
 
 import pytest
 
+from tests.const import MOCK_LOGIN_RESPONSE
+
 pytest_plugins = "pytest_homeassistant_custom_component"
 
 
@@ -45,7 +47,19 @@ def skip_notifications_fixture():
 @pytest.fixture(name="bypass_get_data")
 def bypass_get_data_fixture():
     """Skip calls to get data from API."""
-    with patch("custom_components.acer_air_monitor.AirMonitorApiClient.async_get_data"):
+    with patch(
+        "custom_components.acer_air_monitor.lib.api.AirMonitorApiClient.async_get_data"
+    ):
+        yield
+
+
+@pytest.fixture(name="bypass_login")
+def bypass_login_fixture():
+    """Skip calls to login from API."""
+    with patch(
+        "custom_components.acer_air_monitor.lib.api.AirMonitorAuthApiClient.login",
+        return_value=MOCK_LOGIN_RESPONSE,
+    ):
         yield
 
 
@@ -55,7 +69,17 @@ def bypass_get_data_fixture():
 def error_get_data_fixture():
     """Simulate error when retrieving data from API."""
     with patch(
-        "custom_components.acer_air_monitor.AirMonitorApiClient.async_get_data",
+        "custom_components.acer_air_monitor.lib.api.AirMonitorApiClient.async_get_data",
+        side_effect=Exception,
+    ):
+        yield
+
+
+@pytest.fixture(name="error_on_login")
+def error_login_fixture():
+    """Simulate error when login from API."""
+    with patch(
+        "custom_components.acer_air_monitor.lib.api.AirMonitorAuthApiClient.login",
         side_effect=Exception,
     ):
         yield

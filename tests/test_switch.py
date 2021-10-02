@@ -9,13 +9,15 @@ from pytest_homeassistant_custom_component.common import MockConfigEntry
 from custom_components.acer_air_monitor import async_setup_entry
 from custom_components.acer_air_monitor.const import DEFAULT_NAME, DOMAIN, SWITCH
 
-from .const import MOCK_CONFIG
+from .const import MOCK_CONFIG, MOCK_USER_CONFIG
 
 
 async def test_switch_services(hass: HomeAssistant):
     """Test switch services."""
     # Create a mock entry so we don't have to go through config flow
-    config_entry = MockConfigEntry(domain=DOMAIN, data=MOCK_CONFIG, entry_id="test")
+    config_entry = MockConfigEntry(
+        domain=DOMAIN, data=MOCK_CONFIG | MOCK_USER_CONFIG, entry_id="test"
+    )
     assert await async_setup_entry(hass, config_entry)
     await hass.async_block_till_done()
 

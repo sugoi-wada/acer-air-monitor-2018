@@ -12,9 +12,10 @@ from custom_components.acer_air_monitor.const import (
     PLATFORMS,
     SENSOR,
     SWITCH,
+    USER_ATTR,
 )
 
-from .const import MOCK_CONFIG
+from .const import MOCK_CONFIG, MOCK_LOGIN_RESPONSE, MOCK_USER_CONFIG
 
 
 # This fixture bypasses the actual setup of the integration
@@ -34,9 +35,9 @@ def bypass_setup_fixture():
 
 
 # Here we simiulate a successful config flow from the backend.
-# Note that we use the `bypass_get_data` fixture here because
+# Note that we use the `bypass_login` fixture here because
 # we want the config flow validation to succeed during the test.
-async def test_successful_config_flow(hass: HomeAssistant, bypass_get_data):
+async def test_successful_config_flow(hass: HomeAssistant, bypass_login):
     """Test a successful config flow."""
     # Initialize a config flow
     result = await hass.config_entries.flow.async_init(
@@ -57,16 +58,16 @@ async def test_successful_config_flow(hass: HomeAssistant, bypass_get_data):
     # the input data
     assert result["type"] == data_entry_flow.RESULT_TYPE_CREATE_ENTRY
     assert result["title"] == "test_email"
-    assert result["data"] == MOCK_CONFIG
+    assert result["data"] == MOCK_CONFIG | MOCK_USER_CONFIG
     assert result["result"]
 
 
 # In this case, we want to simulate a failure during the config flow.
-# We use the `error_on_get_data` mock instead of `bypass_get_data`
+# We use the `error_on_login` mock instead of `bypass_get_data`
 # (note the function parameters) to raise an Exception during
 # validation of the input config.
-async def test_failed_config_flow(hass: HomeAssistant, error_on_get_data):
-    """Test a failed config flow due to credential validation failure."""
+async def test_failed_config_flow(hass: HomeAssistant, error_on_login):
+    """Test a failed config flow due to login failure."""
     result = await hass.config_entries.flow.async_init(
         DOMAIN, context={"source": config_entries.SOURCE_USER}
     )

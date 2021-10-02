@@ -1,15 +1,17 @@
-"""Adds config flow for Blueprint."""
+"""Adds config flow for Acer air monitor."""
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import voluptuous as vol
+import logging
+from .lib.api import AirMonitorAuthApiClient
+from .const import CONF_PASSWORD, CONF_EMAIL, DOMAIN, PLATFORMS, USER_ATTR
 
-from .api import AirMonitorApiClient
-from .const import CONF_PASSWORD, CONF_EMAIL, DOMAIN, PLATFORMS
+_LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
-class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config flow for Blueprint."""
+class ConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+    """Config flow handler."""
 
     VERSION = 1
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -27,14 +29,17 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         #     return self.async_abort(reason="single_instance_allowed")
 
         if user_input is not None:
-            valid = await self._test_credentials(
-                user_input[CONF_EMAIL], user_input[CONF_PASSWORD]
-            )
-            if valid:
-                return self.async_create_entry(
-                    title=user_input[CONF_EMAIL], data=user_input
+            try:
+                ret = await self._try_login(
+                    user_input[CONF_EMAIL], user_input[CONF_PASSWORD]
                 )
-            else:
+
+                return self.async_create_entry(
+                    title=user_input[CONF_EMAIL],
+                    data=user_input | {USER_ATTR: ret["data"]},
+                )
+            except Exception as exception:  # pylint: disable=broad-except
+                _LOGGER.error(exception)
                 self._errors["base"] = "auth"
 
             return await self._show_config_form(user_input)
@@ -49,7 +54,7 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        return BlueprintOptionsFlowHandler(config_entry)
+        return OptionsFlowHandler(config_entry)
 
     async def _show_config_form(
         self, user_input: dict
@@ -66,22 +71,17 @@ class BlueprintFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             errors=self._errors,
         )
 
-    async def _test_credentials(self, email: str, password: str):
-        """Return true if credentials is valid."""
-        try:
-            session = async_create_clientsession(self.hass)
-            client = AirMonitorApiClient(email, password, session)
-            await client.async_get_data()
-            return True
-        except Exception:  # pylint: disable=broad-except
-            pass
-        return False
+    async def _try_login(self, email: str, password: str) -> dict:
+        """Return response if login succeeded."""
+        session = async_create_clientsession(self.hass)
+        client = AirMonitorAuthApiClient(email, password, session)
+        return await client.login()
 
 
-class BlueprintOptionsFlowHandler(config_entries.OptionsFlow):
-    """Blueprint config flow options handler."""
+class OptionsFlowHandler(config_entries.OptionsFlow):
+    """Config flow options handler."""
 
-    def __init__(self, config_entry: config_entries.ConfigEntry):
+    def __init__(self, config_entry):
         """Initialize HACS options flow."""
         self.config_entry = config_entry
         self.options = dict(config_entry.options)
