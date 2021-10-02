@@ -34,6 +34,9 @@ class ConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     user_input[CONF_EMAIL], user_input[CONF_PASSWORD]
                 )
 
+                await self.async_set_unique_id(ret["data"]["id"])
+                self._abort_if_unique_id_configured()
+
                 return self.async_create_entry(
                     title=user_input[CONF_EMAIL],
                     data=user_input | {USER_ATTR: ret["data"]},
