@@ -2,11 +2,10 @@
 import logging
 
 from homeassistant import config_entries
-from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import voluptuous as vol
 
-from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN, PLATFORMS, USER_ATTR
+from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN, USER_ATTR
 from .lib.api import AirMonitorAuthApiClient
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
@@ -56,11 +55,6 @@ class ConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
 
         return await self._show_config_form(user_input)
 
-    @staticmethod
-    @callback
-    def async_get_options_flow(config_entry):
-        return OptionsFlowHandler(config_entry)
-
     async def _show_config_form(
         self, user_input: dict
     ):  # pylint: disable=unused-argument
@@ -81,38 +75,3 @@ class ConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         session = async_create_clientsession(self.hass)
         client = AirMonitorAuthApiClient(email, password, session)
         return await client.login()
-
-
-class OptionsFlowHandler(config_entries.OptionsFlow):
-    """Config flow options handler."""
-
-    def __init__(self, config_entry):
-        """Initialize HACS options flow."""
-        self.config_entry = config_entry
-        self.options = dict(config_entry.options)
-
-    async def async_step_init(self, user_input=None):  # pylint: disable=unused-argument
-        """Manage the options."""
-        return await self.async_step_user()
-
-    async def async_step_user(self, user_input=None):
-        """Handle a flow initialized by the user."""
-        if user_input is not None:
-            self.options.update(user_input)
-            return await self._update_options()
-
-        return self.async_show_form(
-            step_id="user",
-            data_schema=vol.Schema(
-                {
-                    vol.Required(x, default=self.options.get(x, True)): bool
-                    for x in sorted(PLATFORMS)
-                }
-            ),
-        )
-
-    async def _update_options(self):
-        """Update config entry options."""
-        return self.async_create_entry(
-            title=self.config_entry.data.get(CONF_EMAIL), data=self.options
-        )
