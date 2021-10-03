@@ -26,5 +26,4 @@ class AirMonitorEntity(CoordinatorEntity):
             "name": self.device["name"],
             "model": self.device["modelName"],
             "manufacturer": MANUFACTURER,
-            "mac": self.device["mac"],
         }

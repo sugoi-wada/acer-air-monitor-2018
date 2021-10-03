@@ -14,7 +14,7 @@ from .entity import AirMonitorEntity
 
 async def async_setup_entry(
     hass: HomeAssistant, entry: ConfigEntry, async_add_entities
-):
+) -> None:
     """Setup sensor platform."""
     coordinator = hass.data[DOMAIN][entry.entry_id]
     async_add_entities(
