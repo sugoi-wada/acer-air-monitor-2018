@@ -1,4 +1,4 @@
-"""BlueprintEntity class"""
+"""AirMonitorEntity class"""
 from typing import Union
 
 from homeassistant.helpers.entity import DeviceInfo
