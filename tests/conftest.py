@@ -18,6 +18,8 @@ from unittest.mock import patch
 
 import pytest
 
+from tests.const import MOCK_GET_DEVICES_RESPONSE, MOCK_LOGIN_RESPONSE
+
 pytest_plugins = "pytest_homeassistant_custom_component"
 
 
@@ -40,24 +42,41 @@ def skip_notifications_fixture():
         yield
 
 
-# This fixture, when used, will result in calls to async_get_data to return None. To have the call
-# return a value, we would add the `return_value=<VALUE_TO_RETURN>` parameter to the patch call.
-@pytest.fixture(name="bypass_get_data")
-def bypass_get_data_fixture():
-    """Skip calls to get data from API."""
+@pytest.fixture(name="bypass_login")
+def bypass_login_fixture():
+    """Skip calls to login from API."""
     with patch(
-        "custom_components.acer_air_monitor.IntegrationBlueprintApiClient.async_get_data"
+        "custom_components.acer_air_monitor.lib.api.AirMonitorAuthApiClient.login",
+        return_value=MOCK_LOGIN_RESPONSE,
     ):
         yield
 
 
-# In this fixture, we are forcing calls to async_get_data to raise an Exception. This is useful
-# for exception handling.
-@pytest.fixture(name="error_on_get_data")
-def error_get_data_fixture():
+@pytest.fixture(name="bypass_get_devices")
+def bypass_get_devices_fixture():
+    """Skip calls to get data from API."""
+    with patch(
+        "custom_components.acer_air_monitor.lib.api.AirMonitorApiClient.get_devices",
+        return_value=MOCK_GET_DEVICES_RESPONSE,
+    ):
+        yield
+
+
+@pytest.fixture(name="error_on_login")
+def error_login_fixture():
+    """Simulate error when login from API."""
+    with patch(
+        "custom_components.acer_air_monitor.lib.api.AirMonitorAuthApiClient.login",
+        side_effect=Exception,
+    ):
+        yield
+
+
+@pytest.fixture(name="error_on_get_devices")
+def error_get_devices_fixture():
     """Simulate error when retrieving data from API."""
     with patch(
-        "custom_components.acer_air_monitor.IntegrationBlueprintApiClient.async_get_data",
+        "custom_components.acer_air_monitor.lib.api.AirMonitorApiClient.get_devices",
         side_effect=Exception,
     ):
         yield

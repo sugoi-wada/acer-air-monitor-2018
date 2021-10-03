@@ -1,33 +1,27 @@
 """Constants for acer_air_monitor."""
 # Base component constants
-NAME = "Acer Air Monitor"
+MANUFACTURER = "Acer"
+NAME = f"{MANUFACTURER} Air Monitor"
 DOMAIN = "acer_air_monitor"
 DOMAIN_DATA = f"{DOMAIN}_data"
-VERSION = "0.0.1"
-ATTRIBUTION = "Data provided by http://jsonplaceholder.typicode.com/"
+VERSION = "0.1.0"
 ISSUE_URL = "https://github.com/sugoi-wada/acer-air-monitor-2018/issues"
 
 # Icons
 ICON = "mdi:format-quote-close"
 
-# Device classes
-BINARY_SENSOR_DEVICE_CLASS = "connectivity"
-
 # Platforms
-BINARY_SENSOR = "binary_sensor"
 SENSOR = "sensor"
-SWITCH = "switch"
-PLATFORMS = [BINARY_SENSOR, SENSOR, SWITCH]
-
+PLATFORMS = [SENSOR]
 
 # Configuration and options
 CONF_ENABLED = "enabled"
-CONF_USERNAME = "username"
+CONF_EMAIL = "email"
 CONF_PASSWORD = "password"
 
-# Defaults
-DEFAULT_NAME = DOMAIN
+USER_ATTR = "user_attr"
 
+USER_ID = "aopUserId"
 
 STARTUP_MESSAGE = f"""
 -------------------------------------------------------------------

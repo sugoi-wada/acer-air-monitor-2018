@@ -3,15 +3,15 @@
     "step": {
       "user": {
         "title": "Acer Air Monitor Configuration",
-        "description": "If you need help with the configuration have a look here: https://github.com/sugoi-wada/acer-air-monitor-2018",
+        "description": "Please login to your acer account (Connect the Acer Air Monitor 2018 app to your device in advance.)",
         "data": {
-          "username": "Username",
+          "email": "Email",
           "password": "Password"
         }
       }
     },
     "error": {
-      "auth": "Username/Password is wrong."
+      "auth": "Email/Password is wrong."
     },
     "abort": {
       "single_instance_allowed": "Only a single instance is allowed."

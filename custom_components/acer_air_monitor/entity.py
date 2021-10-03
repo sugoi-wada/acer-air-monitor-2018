@@ -1,33 +1,29 @@
-"""BlueprintEntity class"""
+"""AirMonitorEntity class"""
+from typing import Union
+
+from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
+from custom_components.acer_air_monitor import AirMonitorDataUpdateCoordinator
+
+from .const import DOMAIN, MANUFACTURER
 
 
-class IntegrationBlueprintEntity(CoordinatorEntity):
-    def __init__(self, coordinator, config_entry):
+class AirMonitorEntity(CoordinatorEntity):
+    def __init__(self, coordinator: AirMonitorDataUpdateCoordinator, device_index: int):
         super().__init__(coordinator)
-        self.config_entry = config_entry
+        self.device_index = device_index
 
     @property
-    def unique_id(self):
-        """Return a unique ID to use for this entity."""
-        return self.config_entry.entry_id
+    def device(self) -> dict:
+        """Return a device dict"""
+        return self.coordinator.data[self.device_index]
 
     @property
-    def device_info(self):
+    def device_info(self) -> Union[DeviceInfo, None]:
         return {
-            "identifiers": {(DOMAIN, self.unique_id)},
-            "name": NAME,
-            "model": VERSION,
-            "manufacturer": NAME,
-        }
-
-    @property
-    def device_state_attributes(self):
-        """Return the state attributes."""
-        return {
-            "attribution": ATTRIBUTION,
-            "id": str(self.coordinator.data.get("id")),
-            "integration": DOMAIN,
+            "identifiers": {(DOMAIN, self.device["device_id"])},
+            "name": self.device["name"],
+            "model": self.device["modelName"],
+            "manufacturer": MANUFACTURER,
         }
