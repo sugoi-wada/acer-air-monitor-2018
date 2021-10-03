@@ -1,11 +1,13 @@
 """Adds config flow for Acer air monitor."""
+import logging
+
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers.aiohttp_client import async_create_clientsession
 import voluptuous as vol
-import logging
+
+from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN, PLATFORMS, USER_ATTR
 from .lib.api import AirMonitorAuthApiClient
-from .const import CONF_PASSWORD, CONF_EMAIL, DOMAIN, PLATFORMS, USER_ATTR
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 

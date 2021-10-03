@@ -6,8 +6,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from custom_components.acer_air_monitor.lib.api import (
-    AirMonitorAuthApiClient,
     AirMonitorApiClient,
+    AirMonitorAuthApiClient,
 )
 from custom_components.acer_air_monitor.lib.const import BASE_URL
 
@@ -31,9 +31,9 @@ async def test_api(hass: HomeAssistant, aioclient_mock, caplog):
     # return {"test": "test"} when a `GET` call is made to the specified URL. We then
     # call `async_get_data` which will make that `GET` request.
     aioclient_mock.get(
-        "https://jsonplaceholder.typicode.com/posts/1", json={"test": "test"}
+        f"{BASE_URL}/airmentor/query.php?user_id=test", json={"test": "test"}
     )
-    assert await api.async_get_data() == {"test": "test"}
+    assert await api.get_devices() == {"test": "test"}
 
     # We do the same for `async_set_title`. Note the difference in the mock call
     # between the previous step and this one. We use `patch` here instead of `get`

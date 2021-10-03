@@ -1,16 +1,14 @@
 """Constants for acer_air_monitor."""
 # Base component constants
-NAME = "Acer Air Monitor"
+MANUFACTURER = "Acer"
+NAME = f"{MANUFACTURER} Air Monitor"
 DOMAIN = "acer_air_monitor"
 DOMAIN_DATA = f"{DOMAIN}_data"
 VERSION = "0.0.1"
-ATTRIBUTION = "Data provided by Acer Air Monitor"
 ISSUE_URL = "https://github.com/sugoi-wada/acer-air-monitor-2018/issues"
 
 # Icons
 ICON = "mdi:format-quote-close"
-
-# Device classes
 
 # Platforms
 SENSOR = "sensor"
@@ -24,10 +22,6 @@ CONF_PASSWORD = "password"
 USER_ATTR = "user_attr"
 
 USER_ID = "aopUserId"
-
-# Defaults
-DEFAULT_NAME = DOMAIN
-
 
 STARTUP_MESSAGE = f"""
 -------------------------------------------------------------------

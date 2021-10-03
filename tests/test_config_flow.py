@@ -4,18 +4,10 @@ from unittest.mock import patch
 from homeassistant import config_entries, data_entry_flow
 from homeassistant.core import HomeAssistant
 import pytest
-from pytest_homeassistant_custom_component.common import MockConfigEntry
 
-from custom_components.acer_air_monitor.const import (
-    BINARY_SENSOR,
-    DOMAIN,
-    PLATFORMS,
-    SENSOR,
-    SWITCH,
-    USER_ATTR,
-)
+from custom_components.acer_air_monitor.const import DOMAIN
 
-from .const import MOCK_CONFIG, MOCK_LOGIN_RESPONSE, MOCK_USER_CONFIG
+from .const import MOCK_CONFIG, MOCK_USER_CONFIG
 
 
 # This fixture bypasses the actual setup of the integration
