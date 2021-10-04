@@ -1,25 +1,19 @@
-[![GitHub Release][releases-shield]][releases]
-[![GitHub Activity][commits-shield]][commits]
-[![License][license-shield]][license]
+# Acer Air Monitor
 
-[![hacs][hacsbadge]][hacs]
-[![Project Maintenance][maintenance-shield]][user_profile]
-[![BuyMeCoffee][buymecoffeebadge]][buymecoffee]
+Home Assistant integration for Acer Air Monitor.
 
-[![Discord][discord-shield]][discord]
-[![Community Forum][forum-shield]][forum]
+This integration allows you to add Air Monitor sensors to your home assistant.
 
-_Component to integrate with [acer_air_monitor][acer_air_monitor]._
+**This component will set up the following sensors.**
 
-**This component will set up the following platforms.**
-
-Platform | Description
--- | --
-`binary_sensor` | Show something `True` or `False`.
-`sensor` | Show info from API.
-`switch` | Switch something `True` or `False`.
-
-![example][exampleimg]
+- `CO2`
+- `PM2.5`
+- `PM10`
+- `Illuminance`
+- `Humidity`
+- `Temperature`
+- `TVOC`
+- `IAQ`
 
 {% if not installed %}
 ## Installation
@@ -31,26 +25,3 @@ Platform | Description
 
 
 ## Configuration is done in the UI
-
-<!---->
-
-***
-
-[acer_air_monitor]: https://github.com/sugoi-wada/acer-air-monitor-2018
-[buymecoffee]: https://www.buymeacoffee.com/ludeeus
-[buymecoffeebadge]: https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg?style=for-the-badge
-[commits-shield]: https://img.shields.io/github/commit-activity/y/custom-components/acer_air_monitor.svg?style=for-the-badge
-[commits]: https://github.com/sugoi-wada/acer-air-monitor-2018/commits/main
-[hacs]: https://hacs.xyz
-[hacsbadge]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=for-the-badge
-[discord]: https://discord.gg/Qa5fW2R
-[discord-shield]: https://img.shields.io/discord/330944238910963714.svg?style=for-the-badge
-[exampleimg]: example.png
-[forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg?style=for-the-badge
-[forum]: https://community.home-assistant.io/
-[license]: https://github.com/sugoi-wada/acer-air-monitor-2018/blob/main/LICENSE
-[license-shield]: https://img.shields.io/github/license/custom-components/acer_air_monitor.svg?style=for-the-badge
-[maintenance-shield]: https://img.shields.io/badge/maintainer-Joakim%20Sørensen%20%40ludeeus-blue.svg?style=for-the-badge
-[releases-shield]: https://img.shields.io/github/release/custom-components/acer_air_monitor.svg?style=for-the-badge
-[releases]: https://github.com/sugoi-wada/acer-air-monitor-2018/releases
-[user_profile]: https://github.com/ludeeus
