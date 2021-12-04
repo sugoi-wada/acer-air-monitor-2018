@@ -4,6 +4,6 @@
   "labels": ["dependencies"],
   "schedule": ["every weekend"],
   "pip_requirements": {
-    "fileMatch": ["^requirements(-?[a-z]*)\\.(txt|pip)$"]
+    "fileMatch": ["^requirements([-|_]?[a-z]*)\\.(txt|pip)$"]
   }
 }
