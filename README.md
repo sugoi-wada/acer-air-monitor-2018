@@ -23,6 +23,12 @@ Connect your Acer account and device with the Acer Air Monitor 2018 app ([Androi
 
 ## Installation
 
+### Via HACS
+
+Search and install `Acer Air Monitor` in HACS
+
+### Manually
+
 1. Using the tool of choice open the directory (folder) for your HA configuration (where you find `configuration.yaml`).
 2. If you do not have a `custom_components` directory (folder) there, you need to create it.
 3. In the `custom_components` directory (folder) create a new folder called `acer_air_monitor`.
