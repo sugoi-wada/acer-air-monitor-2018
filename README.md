@@ -37,22 +37,6 @@ Search and install `Acer Air Monitor` in HACS
 6. Restart Home Assistant
 7. In the HA UI go to "Configuration" -> "Integrations" click "+" and search for "Acer Air Monitor"
 
-Using your HA configuration directory (folder) as a starting point you should now also have this:
-
-```text
-custom_components/acer_air_monitor/translations/en.json
-custom_components/acer_air_monitor/translations/nb.json
-custom_components/acer_air_monitor/translations/sensor.nb.json
-custom_components/acer_air_monitor/__init__.py
-custom_components/acer_air_monitor/api.py
-custom_components/acer_air_monitor/binary_sensor.py
-custom_components/acer_air_monitor/config_flow.py
-custom_components/acer_air_monitor/const.py
-custom_components/acer_air_monitor/manifest.json
-custom_components/acer_air_monitor/sensor.py
-custom_components/acer_air_monitor/switch.py
-```
-
 ## Configuration is done in the UI
 
 <!---->
