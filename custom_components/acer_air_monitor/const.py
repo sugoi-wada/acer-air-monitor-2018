@@ -4,7 +4,7 @@ MANUFACTURER = "Acer"
 NAME = f"{MANUFACTURER} Air Monitor"
 DOMAIN = "acer_air_monitor"
 DOMAIN_DATA = f"{DOMAIN}_data"
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 ISSUE_URL = "https://github.com/sugoi-wada/acer-air-monitor-2018/issues"
 
 # Icons
