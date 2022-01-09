@@ -1,9 +1,6 @@
 """Acer Air Monitor API Client."""
 from abc import ABC
-import asyncio
 import logging
-import socket
-from typing import Optional
 
 import aiohttp
 from aiohttp.formdata import FormData
@@ -21,7 +18,7 @@ HEADERS = {"Content-type": "application/json; charset=UTF-8"}
 def tryApiWrapper(func):
     async def wrapper_call(*args, **kwargs):
         try:
-            async with async_timeout.timeout(TIMEOUT, loop=asyncio.get_event_loop()):
+            async with async_timeout.timeout(TIMEOUT):
                 return await func(*args, **kwargs)
         except (Exception,) as exception:
             _LOGGER.info(exception)
