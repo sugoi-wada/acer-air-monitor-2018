@@ -1,4 +1,4 @@
-homeassistant==2021.12.8
+homeassistant==2021.12.10
 black==22.1.0
 isort==5.10.1
 flake8==4.0.1
