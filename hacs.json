@@ -1,6 +1,6 @@
 {
   "name": "Acer Air Monitor",
-  "hacs": "1.19.1",
+  "hacs": "1.21.0",
   "domains": ["sensor"],
-  "homeassistant": "2021.12.8"
+  "homeassistant": "2022.2.2"
 }
