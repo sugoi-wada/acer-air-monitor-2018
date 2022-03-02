@@ -1,0 +1,31 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Configuração Acer Air Monitor",
+        "description": "Faça login na sua conta acer (Conecte o aplicativo Acer Air Monitor 2018 ao seu dispositivo com antecedência.)",
+        "data": {
+          "email": "Email",
+          "password": "Senha"
+        }
+      }
+    },
+    "error": {
+      "auth": "O e-mail/senha está errado."
+    },
+    "abort": {
+      "single_instance_allowed": "Apenas uma única instância é permitida."
+    }
+  },
+  "options": {
+    "step": {
+      "user": {
+        "data": {
+          "binary_sensor": "Binary sensor habilitado",
+          "sensor": "Sensor habilitado",
+          "switch": "Switch habilitado"
+        }
+      }
+    }
+  }
+}
