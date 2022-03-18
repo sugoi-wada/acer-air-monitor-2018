@@ -12,18 +12,13 @@
     },
     "error": {
       "auth": "O e-mail/senha está errado."
-    },
-    "abort": {
-      "single_instance_allowed": "Apenas uma única instância é permitida."
     }
   },
   "options": {
     "step": {
       "user": {
         "data": {
-          "binary_sensor": "Binary sensor habilitado",
-          "sensor": "Sensor habilitado",
-          "switch": "Switch habilitado"
+          "sensor": "Sensor habilitado"
         }
       }
     }
