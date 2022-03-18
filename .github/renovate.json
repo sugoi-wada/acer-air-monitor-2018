@@ -5,5 +5,10 @@
   "schedule": ["every weekend"],
   "pip_requirements": {
     "fileMatch": ["^requirements([-|_]?[a-z]*)\\.(txt|pip)$"]
-  }
+  },
+  "packageRules": [{
+    "matchPackageNames": ["homeassistant", "pytest-homeassistant-custom-component"],
+    "matchUpdateTypes": "patch",
+    "enabled": false
+  }]
 }
