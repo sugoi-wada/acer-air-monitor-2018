@@ -1,14 +1,4 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base", ":timezone(Asia/Tokyo)", ":prHourlyLimitNone"],
-  "labels": ["dependencies"],
-  "schedule": ["every weekend"],
-  "pip_requirements": {
-    "fileMatch": ["^requirements([-|_]?[a-z]*)\\.(txt|pip)$"]
-  },
-  "packageRules": [{
-    "matchPackageNames": ["homeassistant", "pytest-homeassistant-custom-component"],
-    "matchUpdateTypes": "patch",
-    "enabled": false
-  }]
+  "extends": ["github>sugoi-wada/renovate-config"]
 }
