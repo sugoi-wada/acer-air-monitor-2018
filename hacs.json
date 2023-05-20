@@ -1,5 +1,9 @@
 {
   "name": "Acer Air Monitor",
+  "filename": "acer_air_monitor.zip",
   "hacs": "1.6.0",
-  "homeassistant": "0.118.0"
+  "homeassistant": "2023.3.0",
+  "hide_default_branch": true,
+  "render_readme": true,
+  "zip_release": true
 }

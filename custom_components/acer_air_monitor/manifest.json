@@ -1,10 +1,10 @@
 {
   "domain": "acer_air_monitor",
   "name": "Acer Air Monitor",
+  "codeowners": ["@sugoi-wada"],
+  "config_flow": true,
   "documentation": "https://github.com/sugoi-wada/acer-air-monitor-2018",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/sugoi-wada/acer-air-monitor-2018/issues",
-  "version": "0.0.0",
-  "config_flow": true,
-  "codeowners": ["@sugoi-wada"]
+  "version": "0.0.0"
 }
