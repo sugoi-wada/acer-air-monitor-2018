@@ -1,7 +1,6 @@
 """Sensor platform for acer_air_monitor."""
 from __future__ import annotations
 
-from typing import Union
 
 from homeassistant.components.sensor import (
     ENTITY_ID_FORMAT,
@@ -125,7 +124,7 @@ class AirMonitorSensor(AirMonitorEntity, SensorEntity):
         super().__init__(coordinator)
 
     @property
-    def unique_id(self) -> Union[str, None]:
+    def unique_id(self) -> str | None:
         """Return a unique ID to use for this entity."""
         return f"{self.coordinator.data['device_id']}_{self._sensor_key}"
 
