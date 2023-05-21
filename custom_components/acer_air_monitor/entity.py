@@ -1,29 +1,26 @@
-"""AirMonitorEntity class"""
-from typing import Union
+"""AirMonitorEntity class."""
+from __future__ import annotations
 
 from homeassistant.helpers.entity import DeviceInfo
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from custom_components.acer_air_monitor import AirMonitorDataUpdateCoordinator
-
-from .const import DOMAIN, MANUFACTURER
+from .const import ATTRIBUTION, DOMAIN, NAME, VERSION
+from .coordinator import AirMonitorDataUpdateCoordinator
 
 
 class AirMonitorEntity(CoordinatorEntity):
-    def __init__(self, coordinator: AirMonitorDataUpdateCoordinator, device_index: int):
+    """AirMonitorEntity class."""
+
+    _attr_has_entity_name = True
+    _attr_attribution = ATTRIBUTION
+
+    def __init__(self, coordinator: AirMonitorDataUpdateCoordinator) -> None:
+        """Initialize."""
+        self._attr_unique_id = coordinator.config_entry.entry_id
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, coordinator.data["aopDeviceId"])},
+            name=NAME,
+            model=VERSION,
+            manufacturer=NAME,
+        )
         super().__init__(coordinator)
-        self.device_index = device_index
-
-    @property
-    def device(self) -> dict:
-        """Return a device dict"""
-        return self.coordinator.data[self.device_index]
-
-    @property
-    def device_info(self) -> Union[DeviceInfo, None]:
-        return {
-            "identifiers": {(DOMAIN, self.device["device_id"])},
-            "name": self.device["name"],
-            "model": self.device["modelName"],
-            "manufacturer": MANUFACTURER,
-        }

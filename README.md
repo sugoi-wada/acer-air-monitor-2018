@@ -1,5 +1,12 @@
 # Acer Air Monitor for Home Assistant
 
+[![GitHub Release][releases-shield]][releases]
+[![GitHub Activity][commits-shield]][commits]
+[![License][license-shield]](LICENSE)
+
+[![hacs][hacsbadge]][hacs]
+![Project Maintenance][maintenance-shield]
+
 Home Assistant integration for Acer Air Monitor.
 
 This integration allows you to add Air Monitor sensors to your home assistant.

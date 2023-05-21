@@ -1,33 +1,33 @@
 """Adds config flow for Acer air monitor."""
-import logging
+from __future__ import annotations
 
-from homeassistant import config_entries
-from homeassistant.helpers.aiohttp_client import async_create_clientsession
+# import logging
+
 import voluptuous as vol
+from homeassistant import config_entries
+from homeassistant.const import CONF_PASSWORD, CONF_EMAIL
+from homeassistant.helpers import selector
+from homeassistant.helpers.aiohttp_client import async_create_clientsession
 
-from .const import CONF_EMAIL, CONF_PASSWORD, DOMAIN, USER_ATTR
-from .lib.api import AirMonitorAuthApiClient
-
-_LOGGER: logging.Logger = logging.getLogger(__package__)
+from .lib.api import (
+    AirMonitorAuthApiClient,
+    ClientAuthenticationError,
+    ClientCommunicationError,
+    ClientError,
+)
+from .const import DOMAIN, LOGGER, USER_ATTR
 
 
 class ConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config flow handler."""
+    """Config flow for Acer Air Monitor."""
 
     VERSION = 1
-    CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
 
-    def __init__(self):
-        """Initialize."""
-        self._errors = {}
-
-    async def async_step_user(self, user_input=None):
+    async def async_step_user(
+        self, user_input: dict | None = None
+    ) -> config_entries.FlowResult:
         """Handle a flow initialized by the user."""
-        self._errors = {}
-
-        # Uncomment the next 2 lines if only a single instance of the integration is allowed:
-        # if self._async_current_entries():
-        #     return self.async_abort(reason="single_instance_allowed")
+        _errors = {}
 
         if user_input is not None:
             try:
@@ -42,36 +42,43 @@ class ConfigFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                     title=user_input[CONF_EMAIL],
                     data=user_input | {USER_ATTR: ret["data"]},
                 )
-            except Exception as exception:  # pylint: disable=broad-except
-                _LOGGER.error(exception)
-                self._errors["base"] = "auth"
+            except ClientAuthenticationError as exception:
+                LOGGER.warning(exception)
+                _errors["base"] = "auth"
+            except ClientCommunicationError as exception:
+                LOGGER.error(exception)
+                _errors["base"] = "connection"
+            except ClientError as exception:
+                LOGGER.exception(exception)
+                _errors["base"] = "unknown"
 
-            return await self._show_config_form(user_input)
-
-        user_input = {}
-        # Provide defaults for form
-        user_input[CONF_EMAIL] = ""
-        user_input[CONF_PASSWORD] = ""
-
-        return await self._show_config_form(user_input)
-
-    async def _show_config_form(
-        self, user_input: dict
-    ):  # pylint: disable=unused-argument
-        """Show the configuration form to edit location data."""
         return self.async_show_form(
             step_id="user",
             data_schema=vol.Schema(
                 {
-                    vol.Required(CONF_EMAIL, default=user_input[CONF_EMAIL]): str,
-                    vol.Required(CONF_PASSWORD, default=user_input[CONF_PASSWORD]): str,
+                    vol.Required(
+                        CONF_EMAIL,
+                        default=(user_input or {}).get(CONF_EMAIL),
+                    ): selector.TextSelector(
+                        selector.TextSelectorConfig(
+                            type=selector.TextSelectorType.EMAIL
+                        ),
+                    ),
+                    vol.Required(CONF_PASSWORD): selector.TextSelector(
+                        selector.TextSelectorConfig(
+                            type=selector.TextSelectorType.PASSWORD
+                        ),
+                    ),
                 }
             ),
-            errors=self._errors,
+            errors=_errors,
         )
 
     async def _try_login(self, email: str, password: str) -> dict:
         """Return response if login succeeded."""
-        session = async_create_clientsession(self.hass)
-        client = AirMonitorAuthApiClient(email, password, session)
+        client = AirMonitorAuthApiClient(
+            email=email,
+            password=password,
+            session=async_create_clientsession(self.hass),
+        )
         return await client.login()

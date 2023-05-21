@@ -2,7 +2,6 @@
   "config": {
     "step": {
       "user": {
-        "title": "Configuração Acer Air Monitor",
         "description": "Faça login na sua conta acer (Conecte o aplicativo Acer Air Monitor 2018 ao seu dispositivo com antecedência.)",
         "data": {
           "email": "Email",
@@ -11,16 +10,9 @@
       }
     },
     "error": {
-      "auth": "O e-mail/senha está errado."
-    }
-  },
-  "options": {
-    "step": {
-      "user": {
-        "data": {
-          "sensor": "Sensor habilitado"
-        }
-      }
+      "auth": "O e-mail/senha está errado.",
+      "connection": "Unable to connect to the server.",
+      "unknown": "Unknown error occurred."
     }
   }
 }
