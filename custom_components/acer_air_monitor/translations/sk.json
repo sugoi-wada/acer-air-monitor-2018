@@ -1,0 +1,18 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "description": "Prihláste sa do svojho účtu acer (vopred pripojte aplikáciu Acer Air Monitor 2018 k svojmu zariadeniu.)",
+        "data": {
+          "email": "Email",
+          "password": "Heslo"
+        }
+      }
+    },
+    "error": {
+      "auth": "Email/Heslo je nesprávne.",
+      "connection": "Nedá sa pripojiť k serveru.",
+      "unknown": "Vyskytla sa neznáma chyba."
+    }
+  }
+}
