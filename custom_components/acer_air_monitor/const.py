@@ -6,7 +6,7 @@ LOGGER: Logger = getLogger(__package__)
 MANUFACTURER = "Acer"
 NAME = f"{MANUFACTURER} Air Monitor"
 DOMAIN = "acer_air_monitor"
-VERSION = "1.2.0"
+VERSION = "1.3.0"
 ATTRIBUTION = "Data provided by Acer Air Monitor"
 
 # for Acer User configuration
